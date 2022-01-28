@@ -2,7 +2,7 @@
 
 ### DESCRIPTION ####
 
-# Analysis for Aguirre, LA, and Adler, LS. 2022. Interacting Antagonims: Parasite Infection Alters Bombus Impaties (Hymenoptera: Apidae) Responses to herbivory on Tomato Plants. In Review. 
+## Analysis for Aguirre, LA, and Adler, LS. 2022. Interacting Antagonims: Parasite Infection Alters Bombus Impaties (Hymenoptera: Apidae) Responses to herbivory on Tomato Plants. In Review. 
 
 # Code Written by LA Aguirre
 # Data Cleaning, Analysis and Visualizations
