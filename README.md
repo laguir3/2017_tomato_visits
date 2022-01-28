@@ -9,13 +9,13 @@ Data Cleaning, Analysis and Visualizations
 
 ---
 ## METADATA 
-counts.csv variables \n
-bid: Unique bee identifier\n
-date: Date of observation\n
-count: Crithidia cell counts per 0.02uL\n
-ctime: Time of day when Crithidia was counted\n
-dtime: Time of day when bee was dissected\n
-wing_raw: Length of marginal cell (right wing) in ocular units at 400x magnification\n
+counts.csv variables. 
+bid: Unique bee identifier. 
+date: Date of observation. 
+count: Crithidia cell counts per 0.02uL. 
+ctime: Time of day when Crithidia was counted. 
+dtime: Time of day when bee was dissected. 
+wing_raw: Length of marginal cell (right wing) in ocular units at 400x magnification. 
 
 Variables created in script:\n\n
 wing_mm: Ocular units converted from wing_raw (13x/20 convertion rate)\n
