@@ -47,6 +47,7 @@ library(car)
 library(lmtest) # lrtest 
 library(flextable)
 library(gdtools) # load fonts
+library(grid)
 
 # Set color-blind palette
 cb <- c("#000000", 
@@ -779,27 +780,36 @@ pdata_main <- ggplot(data = est,
                      aes(x = count, 
                          y = yvar,
                          color = plant)) +
-  geom_line(size = 1.5) + 
+  geom_line(size = .75) + 
   geom_point(data = visits, 
              aes(x = count,
                  y = dur,
+                 shape = plant,
                  color = plant),
-             alpha = 0.15) +
+             size = 1,
+             alpha = 0.25,
+             stroke = .8) +
   theme_classic() +
   xlab(expression(paste(italic("Crithidia"), " Cells/0.02 ", mu,"L"))) + 
   ylab("Visit Duration (s)") +
-  scale_color_manual(name = "Plant Treatment", 
-                     values = c(cb[1], 
-                                cb[7]),
+  scale_shape_manual(name = "Plant Treatment", 
+                     values = c(1, 
+                                2),
                      label = c("Control",
                                "Herbivory")) +
+  scale_color_manual(name = "Plant Treatment",
+                     values = c(cb[1],
+                                cb[7]),
+                     label = c("Control", "Herbivory")) +
   scale_fill_manual(name = "Plant Treatment", 
                     values = c(cb[1],
                                cb[7]),
                     label = c("Control",
                               "Herbivory")) +
-  theme(legend.position = "bottom")
-pdata_main
+  theme(legend.position = "bottom",
+        legend.key.height = unit(7, "mm")) +
+  guides(shape = guide_legend(override.aes = list(alpha = 1)))
+pdate_main
 
 ###### Trends inset####
 ptrend_ins <- ggplot(data = est, 
@@ -929,21 +939,42 @@ est_date <- emmip(dur_mod4.3,
                   CIs = TRUE,
                   type = "response", 
                   style = "numeric",
-                  plotit = TRUE) + 
-  scale_color_manual("Plant Treatment", 
-                     values = c(cb[1], 
-                                cb[7]), 
-                     label  = c("Control",
-                                "Damage")) +
-  theme(legend.position = "bottom") +
+                  plotit = F) 
+
+figureS3 <- ggplot(est_date,
+                   (aes(x = count, 
+                        y = yvar,
+                        color = plant))) + 
+  geom_line(size = 1.5) + 
+  facet_wrap(~fjdate) +
+  theme_classic() +
+  geom_ribbon(aes(ymax = UCL,
+                  ymin = LCL,
+                  fill = plant),
+              alpha = 0.2) +
   xlab(expression(paste(italic("Crithidia"),
                         " Cells/0.02 ", 
                         mu,
                         "L"))) + 
-  ylab("Visit Duration (s)")
+  ylab("Visit Duration (s)") +
+  scale_color_manual(name = "Plant Treatment", 
+                     values = c(cb[1],
+                                cb[7]),
+                     label = c("Control",
+                               "Herbivory")) +
+  scale_fill_manual(name = "Plant Treatment", 
+                    values = c(cb[1],
+                               cb[7]),
+                    label = c("Control",
+                              "Herbivory")) +
+  theme(legend.position = "bottom", 
+        axis.title = element_text(size = 9)) + 
+  scale_x_continuous(breaks = c(0, 100, 200))
+
 
 # Save plot
 ggsave("Figure_S3.pdf",
+       figureS3,
        units = "mm", 
        width = 125,
        height = 125,
